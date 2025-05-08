@@ -31,6 +31,7 @@ robotics\main.o: ../Drivers/STM32F1xx_HAL_Driver/Inc/stm32f1xx_hal_uart.h
 robotics\main.o: ../Core/Inc/tim.h
 robotics\main.o: ../Core/Inc/usart.h
 robotics\main.o: ../Core/Inc/gpio.h
+robotics\main.o: ../Hardware/Key.h
 robotics\main.o: ../Hardware/Motor.h
 robotics\main.o: ../Hardware/Serial.h
 robotics\main.o: D:\Keil_v5\ARM\ARMCC\Bin\..\include\stdio.h

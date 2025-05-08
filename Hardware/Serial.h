@@ -7,5 +7,7 @@
 
 void send_32bits_data(int32_t value);
 void send_16bits_data(uint16_t value);
+void send_float_data(float value);
+
 
 #endif

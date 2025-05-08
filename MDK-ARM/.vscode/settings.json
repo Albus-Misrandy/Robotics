@@ -1,6 +1,7 @@
 {
     "files.associations": {
         "serial_port.h": "c",
-        "motor.h": "c"
+        "motor.h": "c",
+        "servo.h": "c"
     }
 }

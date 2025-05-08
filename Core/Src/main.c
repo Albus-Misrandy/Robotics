@@ -24,6 +24,7 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include "Key.h"
 #include "Motor.h"
 #include "Serial.h"
 #include "Servo.h"
@@ -49,7 +50,8 @@
 
 /* USER CODE BEGIN PV */
 int32_t time_ms = 0;
-// int32_t motor_encoder[2] = {0, 0};
+float motor_encoder[2] = {0.0f, 0.0f};
+uint8_t Key = 0;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -65,6 +67,64 @@ void HAL_TIM_PeriodElapsedCallback(TIM_HandleTypeDef *htim)
   if (htim == &htim6)
   {
     time_ms++;
+  }
+}
+
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+  if (GPIO_Pin == GPIO_PIN_0)
+  {
+    uint8_t a_state = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_0);
+    uint8_t b_state = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_1);
+    if (a_state == GPIO_PIN_SET)
+    {
+      if (b_state == GPIO_PIN_RESET)
+      {
+        motor_encoder[0]++;
+      }
+      else
+      {
+        motor_encoder[0]--;
+      }
+    }
+    if (a_state == GPIO_PIN_RESET)
+    {
+      if (b_state == GPIO_PIN_RESET)
+      {
+        motor_encoder[0]--;
+      }
+      else
+      {
+        motor_encoder[0]++;
+      }
+    }
+  }
+  if (GPIO_Pin == GPIO_PIN_2)
+  {
+    uint8_t c_state = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_2);
+    uint8_t d_state = HAL_GPIO_ReadPin(GPIOC, GPIO_PIN_3);
+    if (c_state == GPIO_PIN_SET)
+    {
+      if (d_state == GPIO_PIN_RESET)
+      {
+        motor_encoder[1]++;
+      }
+      else
+      {
+        motor_encoder[1]--;
+      }
+    }
+    if (c_state == GPIO_PIN_RESET)
+    {
+      if (d_state == GPIO_PIN_RESET)
+      {
+        motor_encoder[1]--;
+      }
+      else
+      {
+        motor_encoder[1]++;
+      }
+    }
   }
 }
 /* USER CODE END 0 */
@@ -98,38 +158,100 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
-  MX_TIM8_Init();
   MX_USART1_UART_Init();
-  MX_TIM4_Init();
-  MX_TIM5_Init();
   MX_TIM3_Init();
   MX_TIM6_Init();
+  MX_TIM8_Init();
   /* USER CODE BEGIN 2 */
   HAL_TIM_PWM_Start(&htim8, TIM_CHANNEL_1);
+  HAL_TIM_PWM_Start(&htim8, TIM_CHANNEL_2);
   HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
-  // HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_1);
-  // HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_2);
-  HAL_TIM_Encoder_Start(&htim4, TIM_CHANNEL_ALL);
-
-  HAL_TIM_Base_Start_IT(&htim6);
   /* USER CODE END 2 */
 
   /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    // Set_Motor_velocity('a', 0);
-    // uint16_t m = __HAL_TIM_GET_COUNTER(&htim4);
-    // send_16bits_data(m);
-    // HAL_Delay(300);
-    if (time_ms > 0 && time_ms <= 3000)
+    // Set_Motor_velocity('b', 20);
+    // Set_Servo_Angle(0.0f);
+    Key = Get_KeyNum(Key);
+    if (Key == 1)
     {
-      Go_Ahead();
+      HAL_TIM_Base_Start_IT(&htim6);
+      if (time_ms > 0 && time_ms <= 3000)
+      {
+        Go_Distance(408.407f, motor_encoder);
+      }
+      if (time_ms > 3000 && time_ms <= 3500)
+      {
+        Stop();
+        motor_encoder[0] = 0;
+        motor_encoder[1] = 0;
+      }
+      if (time_ms > 3500 && time_ms <= 6000)
+      {
+        Turn_Right_Left(60.0f, 300.0f, motor_encoder);
+      }
+      if (time_ms > 6000)
+      {
+        Stop();
+      }
+      
+      float deg = (motor_encoder[0] / 728.0f) * 360.0f;
+      send_float_data(deg);
+      HAL_Delay(200);
     }
-    if (time_ms > 3000)
-    {
-      Stop();
-    }
+    // if (time_ms > 0 && time_ms <= 5900)
+    // {
+    //   Go_Ahead();
+    // }
+    // if (time_ms >5900 && time_ms <= 7200)
+    // {
+    //   Turn_Right_Left_Back(-80.0f);
+    // }
+    // if (time_ms > 7200 && time_ms <= 8500)
+    // {
+    //   Turn_Right_Left_Back(-52.0f);
+    // }
+    // if (time_ms > 8500 && time_ms <= 9500)
+    // {
+    //   Stop_2();
+    // }
+    // if (time_ms > 9500 && time_ms <= 10800)
+    // {
+    //   Go_Back();
+    // }
+    // if (time_ms > 10800)
+    // {
+    //   Stop();
+    // } 
+    // if (time_ms > 10800 && time_ms < 12800)
+    // {
+    //   Stop();
+    // }
+    // if (time_ms > 12800 && time_ms <= 13300)
+    // {
+    //   Go_Ahead();
+    // }
+    // if (time_ms > 13300 && time_ms <= 15200)
+    // {
+    //   Turn_Right_Left_Ahead(-80.0f);
+    // }
+    // if (time_ms > 15200 && time_ms <= 15800)
+    // {
+    //   Stop_2();
+    // }
+    // if (time_ms > 15800 && time_ms <= 17200)
+    // {
+    //   Go_Ahead();
+    // }
+    // if (time_ms > 17200)
+    // {
+    //   Stop();
+    // }
+    
+    // send_32bits_data(time_ms);
+    // HAL_Delay(1000);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

@@ -3,17 +3,18 @@
         {
             "name": "Robotics",
             "includePath": [
-                "e:\\STM32\\F103RCT6\\Robotics\\Core\\Inc",
-                "e:\\STM32\\F103RCT6\\Robotics\\Drivers\\STM32F1xx_HAL_Driver\\Inc",
-                "e:\\STM32\\F103RCT6\\Robotics\\Drivers\\STM32F1xx_HAL_Driver\\Inc\\Legacy",
-                "e:\\STM32\\F103RCT6\\Robotics\\Drivers\\CMSIS\\Device\\ST\\STM32F1xx\\Include",
-                "e:\\STM32\\F103RCT6\\Robotics\\Drivers\\CMSIS\\Include",
-                "e:\\STM32\\F103RCT6\\Robotics\\Hardware",
+                "d:\\STM32_HAL\\F103RCT6\\Robotics\\Core\\Inc",
+                "d:\\STM32_HAL\\F103RCT6\\Robotics\\Drivers\\STM32F1xx_HAL_Driver\\Inc",
+                "d:\\STM32_HAL\\F103RCT6\\Robotics\\Drivers\\STM32F1xx_HAL_Driver\\Inc\\Legacy",
+                "d:\\STM32_HAL\\F103RCT6\\Robotics\\Drivers\\CMSIS\\Device\\ST\\STM32F1xx\\Include",
+                "d:\\STM32_HAL\\F103RCT6\\Robotics\\Drivers\\CMSIS\\Include",
+                "d:\\STM32_HAL\\F103RCT6\\Robotics\\Hardware",
+                "d:\\STM32_HAL\\F103RCT6\\Robotics\\PathPlanner",
                 "D:\\Keil_v5\\ARM\\ARMCC\\include",
                 "D:\\Keil_v5\\ARM\\ARMCC\\include\\rw",
-                "e:\\STM32\\F103RCT6\\Robotics\\MDK-ARM",
-                "e:\\STM32\\F103RCT6\\Robotics\\Core\\Src",
-                "e:\\STM32\\F103RCT6\\Robotics\\Drivers\\STM32F1xx_HAL_Driver\\Src"
+                "d:\\STM32_HAL\\F103RCT6\\Robotics\\MDK-ARM",
+                "d:\\STM32_HAL\\F103RCT6\\Robotics\\Core\\Src",
+                "d:\\STM32_HAL\\F103RCT6\\Robotics\\Drivers\\STM32F1xx_HAL_Driver\\Src"
             ],
             "defines": [
                 "USE_HAL_DRIVER",

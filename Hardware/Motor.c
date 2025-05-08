@@ -23,4 +23,25 @@ void Set_Motor_velocity(char motor_num, int16_t velocity)
             __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_1, 2);
         }
     }
+    if (motor_num == 'b')
+    {
+        if (velocity > 0)
+        {
+            HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_SET);
+            HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_RESET);
+            __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_2, velocity);
+        }
+        if (velocity < 0)
+        {
+            HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
+            HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
+            __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_2, -velocity);
+        }
+        if (velocity == 0)
+        {
+            HAL_GPIO_WritePin(GPIOB, GPIO_PIN_12, GPIO_PIN_RESET);
+            HAL_GPIO_WritePin(GPIOB, GPIO_PIN_13, GPIO_PIN_SET);
+            __HAL_TIM_SET_COMPARE(&htim8, TIM_CHANNEL_2, 2);
+        }
+    }
 }

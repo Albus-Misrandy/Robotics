@@ -23,6 +23,8 @@
 "robotics\system_stm32f1xx.o"
 "robotics\serial.o"
 "robotics\motor.o"
+"robotics\servo.o"
+"robotics\autopath.o"
 --strict --scatter "Robotics\Robotics.sct"
 --summary_stderr --info summarysizes --map --load_addr_map_info --xref --callgraph --symbols
 --info sizes --info totals --info unused --info veneers
